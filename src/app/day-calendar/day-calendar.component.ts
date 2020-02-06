@@ -266,4 +266,20 @@ export class DayCalendarComponent implements OnInit, OnChanges, ControlValueAcce
   goToCurrent() {
     this.currentDateView = moment();
   }
+
+  clearClicked() {
+
+
+    let day: IDay = {
+      date: moment('2000-01-01'),
+      selected: false,
+      currentMonth: false,
+      prevMonth: false,
+      nextMonth: false,
+      currentDay: false,
+      disabled: false
+    };
+    this.onSelect.emit(day);
+
+  }
 }

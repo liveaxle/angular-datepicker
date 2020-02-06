@@ -121,11 +121,18 @@ export class DatePickerComponent implements OnChanges,
 
   set selected(selected: Moment[]) {
     this._selected = selected;
-    this.inputElementValue = (<string[]>this.utilsService
-      .convertFromMomentArray(this.componentConfig.format, selected, ECalendarValue.StringArr))
-      .join(', ');
+    // console.log('selected', selected, selected.length===1 && selected[0].isSame('01-01-2000', 'day'));
+    if (selected.length===1 && selected[0].isSame('01-01-2000', 'day')) {
+      // console.log('set to empty');
+      this.inputElementValue = '';
+    } else {
+      this.inputElementValue = (<string[]>this.utilsService
+        .convertFromMomentArray(this.componentConfig.format, selected, ECalendarValue.StringArr))
+        .join(', ');
+    }
     const val = this.processOnChangeCallback(selected);
     this.onChangeCallback(val);
+    // console.log('calling onchange emit', val);
     this.onChange.emit(val);
   }
 
